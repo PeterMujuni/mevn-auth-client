@@ -4,9 +4,9 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn v-for="link in links" :key="link.title" variant="text" :prepend-icon="link.icon" :href="link.url">{{ link.title }}</v-btn>
+    <v-btn v-if="!isMobile" v-for="link in links" :key="link.title" variant="text" :prepend-icon="link.icon" :href="link.url">{{ link.title }}</v-btn>
 
-    <v-app-bar-nav-icon variant="text" @click.stop="toogle()"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon v-if="isMobile" variant="text" @click.stop="toogle()"></v-app-bar-nav-icon>
   </v-app-bar>
 </template>
 
@@ -27,12 +27,14 @@ const props = defineProps({
   links: {
     type: Array as PropType<ILink[]>,
     required: true,
+  },
+  isMobile: {
+    type: Boolean,
+    default: undefined
   }
 })
 
 const emits = defineEmits(['ToggleDrawer'])
-
-
 
 // METHODS
 const toogle = () => {

@@ -1,6 +1,6 @@
 <template>
-  <AppBar :links="links" @toggle-drawer="onToggleDrawer" :drawer="drawer"/>
-  <NavDrawer :drawer="drawer" />
+  <AppBar :is-mobile="isMobile" :links="links" @toggle-drawer="onToggleDrawer" :drawer="drawer"/>
+  <NavDrawer v-if="isMobile" :links="links" :drawer="drawer" />
 </template>
 
 <script setup lang="ts">
@@ -9,9 +9,16 @@ import { ref } from 'vue'
 // components
 import NavDrawer from './molecules/NavDrawer.vue'
 import AppBar from './molecules/AppBar.vue'
+// vuetify
+import { useDisplay } from 'vuetify';
+import { computed } from 'vue';
+import { onMounted } from 'vue';
 
 // STATE
 const drawer = ref(false)
+// const isMobile = ref(false)
+
+const {name} = useDisplay()
 
 const links = [
   { title: 'Home', url: '/', icon: 'mdi-home' },
@@ -19,11 +26,23 @@ const links = [
   { title: 'Register', url: '/register', icon: 'mdi-account-plus' },
 ]
 
+// COMPUTED
+const isMobile = computed(() => {
+  
+  if(name.value === 'xs') return true
+
+  return false
+})
+
 // METHODS
 const onToggleDrawer = (isOpen: boolean) => {
   drawer.value = isOpen
 }
 
+// LIFE CIRCLES
+// onMounted(() => {
+//     console.log(mobile.value) // false
+//   })
 </script>
 
 <style lang="scss" scoped></style>
