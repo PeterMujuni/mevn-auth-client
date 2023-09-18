@@ -7,8 +7,10 @@ import NavbarComponentVue from './components/NavbarComponent.vue'
   <div id="app">
     <v-app>
       <NavbarComponentVue />
+      <v-main>
+        <RouterView />
+      </v-main>
     </v-app>
-    <RouterView />
   </div>
 </template>
 
