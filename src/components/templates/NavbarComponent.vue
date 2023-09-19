@@ -1,14 +1,16 @@
 <template>
   <AppBar :is-mobile="isMobile" :links="links" @toggle-drawer="onToggleDrawer" :drawer="drawer"/>
   <NavDrawer v-if="isMobile" :links="links" :drawer="drawer" />
+  <UserNavDrawer />
 </template>
 
 <script setup lang="ts">
 // imports
 import { ref } from 'vue'
 // components
-import NavDrawer from './molecules/NavDrawer.vue'
-import AppBar from './molecules/AppBar.vue'
+import NavDrawer from '../molecules/SiteNavDrawer.vue'
+import AppBar from '../molecules/AppBar.vue'
+import UserNavDrawer from '../molecules/UserNavDrawer.vue';
 // vuetify
 import { useDisplay } from 'vuetify';
 import { computed } from 'vue';

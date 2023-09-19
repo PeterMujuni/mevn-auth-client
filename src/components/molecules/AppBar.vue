@@ -4,7 +4,9 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn v-if="!isMobile" v-for="link in links" :key="link.title" variant="text" :prepend-icon="link.icon" :href="link.url">{{ link.title }}</v-btn>
+    <div v-if="!isMobile">
+      <v-btn v-for="link in links" :key="link.title" variant="text" :prepend-icon="link.icon" :href="link.url">{{ link.title }}</v-btn>
+    </div>
 
     <v-app-bar-nav-icon v-if="isMobile" variant="text" @click.stop="toogle()"></v-app-bar-nav-icon>
   </v-app-bar>

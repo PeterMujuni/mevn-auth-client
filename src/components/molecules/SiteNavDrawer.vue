@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer v-model="drawer" location="right" temporary>
     <v-list :items="items">
-      <v-list-item v-for="link in links" :prepend-icon="link.icon" :title="link.title" :value="link.url" :href="link.url"></v-list-item>
+      <v-list-item v-for="link in links" :key="link.title" :prepend-icon="link.icon" :title="link.title" :value="link.url" :href="link.url"></v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
