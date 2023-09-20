@@ -1,12 +1,12 @@
 <template>
-  <v-sheet class="pa-12" rounded>
-    <v-card class="mx-auto px-6 py-8" max-width="444" elevation="4">
+  <v-sheet class="w-100 h-screen d-flex justify-center align-md-center pt-16" rounded>
+    <v-card class="px-6 py-8" max-width="444" max-height="300" min-width="340" >
       <v-form
         v-model="form"
         @submit.prevent="onSubmit"
       >
         <v-text-field
-          v-model="email"
+          v-model="submittedData.email"
           :readonly="loading"
           :rules="[required]"
           class="mb-2"
@@ -16,7 +16,7 @@
         ></v-text-field>
 
         <v-text-field
-          v-model="password"
+          v-model="submittedData.password"
           :readonly="loading"
           :rules="[required]"
           clearable
@@ -45,25 +45,28 @@
 
 <script setup lang="ts">
 // imports
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 
   // STATE
+  const submittedData = reactive({
+  email: null,
+  password: null,
+})
   const form = ref(false)
-  const email = ref(null)
-  const password = ref(null)
   const loading = ref(false)
+
+  const emits = defineEmits(['SubmitData'])
 
   // METHODS
   const onSubmit = () => {
       if (!form.value) return
 
       loading.value = true
-
+      emits('SubmitData', submittedData)
       setTimeout(() => (loading.value = false), 2000)
     }
 
   const required = (v: boolean) => {
-    console.log("v: ", v);
       return !!v || 'Field is required'
   }
   //

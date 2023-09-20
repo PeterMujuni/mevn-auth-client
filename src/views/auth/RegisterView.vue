@@ -1,6 +1,7 @@
 <template>
   <div>
-    <RegisterForm @submit-data="onSubmit"/>
+    <h1>Welcome!</h1>
+    <RegisterForm @submit-data="onSubmit" />
   </div>
 </template>
 
@@ -11,34 +12,27 @@ import { reactive, ref } from 'vue'
 import RegisterForm from '@/components/templates/RegisterForm.vue'
 // composables
 import { useAuthStore } from '../../stores/auth'
+import { useRouter } from 'vue-router'
+// interfaces
 import type { IRegisterData } from '@/interfaces/apis'
-import { useRouter } from 'vue-router';
 
-const router = useRouter()
 
 // STATE
 const authStore = useAuthStore()
-
-// const registerData: IRegisterData = reactive({
-//   first: '',
-//   last: '',
-//   email: '',
-//   password: '',
-//   confirmPassword: '',
-// })
-
 const errorMessage = ref<string>('')
+
+const router = useRouter()
 
 // METHODS
 const onSubmit = async (payload: IRegisterData) => {
-  console.log("payload: ", payload);
-    authStore.register(payload)
-  .then(res => {
-    router.replace({name: 'login'})
-  })
-  .catch(err => {
-    errorMessage.value = err.message
-  })
+  await authStore
+    .register(payload)
+    .then((res) => {
+      router.replace({ name: 'login' })
+    })
+    .catch((err) => {
+      errorMessage.value = err.message
+    })
 }
 </script>
 
