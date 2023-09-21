@@ -3,8 +3,8 @@
     <v-list>
       <v-list-item
         prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-        title="Sandra Adams"
-        subtitle="sandra_a88@gmailcom"
+        :title="user.username"
+        :subtitle="user.email"
       ></v-list-item>
     </v-list>
 
@@ -22,6 +22,13 @@
   </v-navigation-drawer>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { PropType } from 'vue';
+import type { IUser } from '@/interfaces/users';
+
+const props = defineProps({
+  user: {type: Object as PropType<IUser>, required: true},
+})
+</script>
 
 <style scoped></style>

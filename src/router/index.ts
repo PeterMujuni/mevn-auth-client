@@ -12,19 +12,30 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/auth/LoginView.vue')
+      component: () => import('../views/auth/LoginView.vue'),
+      meta: {requiresGuest: true}
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('../views/auth/RegisterView.vue')
+      component: () => import('../views/auth/RegisterView.vue'),
+      meta: {requiresGuest: true}
     },
     {
       path: '/user',
       name: 'user',
-      component: () => import('../views/auth/UserView.vue')
+      component: () => import('../views/auth/UserView.vue'),
+      meta: {requiresAuth: true}
     }
   ]
+})
+
+router.beforeEach((to, from) => {
+  if(to.meta.requiresAuth){
+    return {name: 'login', query: {redirect: to.fullPath}}
+  }else if(to.meta.requiresGuest){
+    return {name: 'home'}
+  }
 })
 
 export default router
